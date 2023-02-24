@@ -22,8 +22,7 @@ namespace InsoftExecutionLogReport
         {
                      
             SearchHelper searchHelper = new SearchHelper();
-            CsvWriter csvWriter= new CsvWriter();
-            CsvWriter gaidis = new CsvWriter();
+            CsvWriter csvWriter= new CsvWriter();            
             string documentsPath = context.GetFolderPath("Select save location");
             List<ELogDataCollection> eLogDataCollections= searchHelper.SearchForExecutionLogs(context,project);
             csvWriter.WriteToCsv(eLogDataCollections, context, documentsPath);            
