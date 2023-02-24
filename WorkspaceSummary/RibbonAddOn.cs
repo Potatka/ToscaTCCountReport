@@ -9,6 +9,6 @@ namespace InsoftExecutionLogReport
         public override string UniqueName => "AddOn";
 
         // This is the localized AddOn name and it will be used in the context menu and the main menu.
-        public override string DisplayedName => "Generate Report";
+        public override string DisplayedName => "Custom Reports";
     }
 }

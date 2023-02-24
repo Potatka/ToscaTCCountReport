@@ -59,7 +59,7 @@ namespace InsoftExecutionLogReport
 
             isWriterFinished = true;
 
-            if (isWriterFinished == true)
+            if (isWriterFinished == true && confirmDelete == true)
             {
                 context.ShowMessageBox("Warning", String.Format("Report created in the following location: {0}"
                         , Environment.NewLine + Environment.NewLine + filePath));

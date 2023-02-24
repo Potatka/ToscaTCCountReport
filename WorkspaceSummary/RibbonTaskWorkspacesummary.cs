@@ -11,7 +11,7 @@ namespace InsoftExecutionLogReport
         public override string ID => "Generate Report";
 
         // Text Property for MenuItem
-        public override string MenuText => "Generate Report";
+        public override string MenuText => "Execution Report";
 
         //Get the project
         readonly TCProject project = TCAddOn.ActiveWorkspace.GetTCProject();    
@@ -28,8 +28,8 @@ namespace InsoftExecutionLogReport
             csvWriter.WriteToCsv(eLogDataCollections, context, documentsPath);            
 
 
-
             context.ShowMessageBox("", "Task finished!");
+
             
         }
     }
