@@ -8,7 +8,7 @@ using Tricentis.TCAPIObjects.Objects;
 
 namespace ToscaTCCountReport
 {
-    public class ELogDataCollection
+    public class TcLogDataCollection
     {
         //Sorting values
         public string DisplayedName { get; set; }
@@ -26,7 +26,7 @@ namespace ToscaTCCountReport
         public string NumberOfTestCasesWithUnknownState { get; set; }
 
 
-        public ELogDataCollection(ExecutionLog el)
+        public TcLogDataCollection(TestCase el)
         {
             //Get the sorting criteria for printing to report
             DisplayedName = el.DisplayedName;
@@ -34,14 +34,14 @@ namespace ToscaTCCountReport
             CreatedAt = el.GetAttributeValue("CreatedAt");
             ModifiedBy = el.GetAttributeValue("ModifiedBy");
             ModifiedAt = el.GetAttributeValue("ModifiedAt");
-            Duration = el.GetAttributeValue("Duration");
+            //Duration = el.GetAttributeValue("Duration");
 
             //Get the values to be written to csv report
-            NumberOfTestCases = el.GetAttributeValue("NumberOfTestCases");
-            NumberOfTestCasesFailed = el.GetAttributeValue("NumberOfTestCasesFailed");
-            NumberOfTestCasesPassed = el.GetAttributeValue("NumberOfTestCasesPassed");
-            NumberOfTestCasesNotExecuted = el.GetAttributeValue("NumberOfTestCasesNotExecuted");
-            NumberOfTestCasesWithUnknownState = el.GetAttributeValue("NumberOfTestCasesWithUnknownState");
+           // NumberOfTestCases = el.GetAttributeValue("NumberOfTestCases");
+           // NumberOfTestCasesFailed = el.GetAttributeValue("NumberOfTestCasesFailed");
+           // NumberOfTestCasesPassed = el.GetAttributeValue("NumberOfTestCasesPassed");
+            //NumberOfTestCasesNotExecuted = el.GetAttributeValue("NumberOfTestCasesNotExecuted");
+            //NumberOfTestCasesWithUnknownState = el.GetAttributeValue("NumberOfTestCasesWithUnknownState");
 
 
         }

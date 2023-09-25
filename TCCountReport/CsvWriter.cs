@@ -12,7 +12,7 @@ namespace ToscaTCCountReport
         {
 
         }
-        public void WriteToCsv(List<ELogDataCollection> executionLog, TCAddOnTaskContext context, string documentsPath)
+        public void WriteToCsv(List<TcLogDataCollection> testCaseLog, TCAddOnTaskContext context, string documentsPath)
         {
             string timestamp = now.ToString("yyyyMMdd");
             string csvFileName = "ExecutionLogReport_" + timestamp + ".csv";
@@ -41,18 +41,17 @@ namespace ToscaTCCountReport
             }
             
             //S
-            foreach (ELogDataCollection el in executionLog)
+            foreach (TcLogDataCollection tcInfo in testCaseLog)
             {
                 if (!File.Exists(filePath))
                 {
-                    var csvString = string.Format("{0},{1},{2},{3},{4}{5}",
-                                                  "DisplayName", "Total TC", "Failed TC", "Not Executed", "PASS", Environment.NewLine);
+                    var csvString = string.Format("{0},{1},{2}{3}",
+                                                  "DisplayName", "CreatedByUser","CreatedTime", Environment.NewLine);
                     File.WriteAllText(filePath, csvString);
                 }
 
-                var csvData = string.Format("{0},{1},{2},{3},{4}{5}",
-                                            el.DisplayedName, el.NumberOfTestCases, el.NumberOfTestCasesFailed,
-                                            el.NumberOfTestCasesNotExecuted, el.NumberOfTestCasesPassed,
+                var csvData = string.Format("{0},{1},{2}{3}",
+                                            tcInfo.DisplayedName, tcInfo.CreatedBy, tcInfo.CreatedAt,                                            
                                              Environment.NewLine);
                 File.AppendAllText(filePath, csvData);
             }

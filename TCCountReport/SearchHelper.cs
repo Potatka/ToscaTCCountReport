@@ -12,28 +12,29 @@ namespace ToscaTCCountReport
     public class SearchHelper
     {
         private List<TCObject> tCObjects = new List<TCObject>();
-        public List<ExecutionLog> executionLogs = new List<ExecutionLog>();
-        public List<ELogDataCollection> executionLogDataCollections = new List<ELogDataCollection>();
+        public List<TestCase> tcs = new List<TestCase>();
+        public List<TcLogDataCollection> executionLogDataCollections = new List<TcLogDataCollection>();
 
 
-        public List<ELogDataCollection> SearchForExecutionLogs(TCAddOnTaskContext context, TCProject project)
+        public List<TcLogDataCollection> SearchForTcLogs(TCAddOnTaskContext context, TCProject project)
         {
-            string remoteELSearch = string.Format("=>SUBPARTS:ExecutionLog[(Version==\"_<Version not set>\")" +
-                "AND(SynchronizationPolicy==\"CustomizableDefaultIsOff\") " +
-                "AND (NodePath=?\"/BCBSM Applications/Member Portal/3. Accepted/DX Execution\")]");
+            string remoteELSearch = string.Format("=>SUBPARTS:TestCase[(CreatedAt=~\"^9/\")" +
+                "AND(CreatedAt=~\"2023\")" +
+                "AND(CreatedBy==\"Admin\")]");
 
             //string basicELSearch = "=>SUBPARTS:ExecutionList->ActualExecutionLog";
 
             tCObjects = project.Search(remoteELSearch);
+           
 
             if (tCObjects.Count != 0)
             {
                 foreach (TCObject obj in tCObjects)
                 {
-                    ExecutionLog executionLog = obj as ExecutionLog; if (executionLog != null)
+                    TestCase tc = obj as TestCase; if (tc != null)
                     {
-                        executionLogs.Add(executionLog);
-                        ELogDataCollection eLogData = new ELogDataCollection(executionLog);
+                        tcs.Add(tc);
+                        TcLogDataCollection eLogData = new TcLogDataCollection(tc);
 
                         //sort thru execution logs and add them to reporting list for later
                         /*if (eLogData.createdBy == "Unknown" && eLogData.duration == "0" && eLogData.createdAt == "Unknown"
