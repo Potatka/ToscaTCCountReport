@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tricentis.TCAPIObjects.Objects;
 
-namespace InsoftExecutionLogReport
+namespace ToscaTCCountReport
 {
     public class ELogDataCollection
     {

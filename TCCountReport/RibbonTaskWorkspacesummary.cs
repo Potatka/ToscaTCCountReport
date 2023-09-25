@@ -2,7 +2,7 @@
 using Tricentis.TCAddOns;
 using Tricentis.TCAPIObjects.Objects;
 
-namespace InsoftExecutionLogReport
+namespace ToscaTCCountReport
 {
     // TCAddOnMenuItem: This class represents a menu item in the menu for an Addon
     class GenerateExecutionLogReport : TCAddOnMenuItem

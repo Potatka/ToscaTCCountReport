@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Tricentis.TCAddOns;
 
-namespace InsoftExecutionLogReport
+namespace ToscaTCCountReport
 {
     public class CsvWriter
     {
