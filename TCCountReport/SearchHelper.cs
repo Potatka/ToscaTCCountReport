@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Tricentis.TCAddOns;
 using Tricentis.TCAPIObjects.Objects;
 
-namespace InsoftExecutionLogReport
+namespace ToscaTCCountReport
 {
     public class SearchHelper
     {

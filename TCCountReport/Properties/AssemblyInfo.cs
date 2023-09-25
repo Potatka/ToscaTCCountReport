@@ -5,15 +5,15 @@ using Tricentis.TCAddOns;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("InsoftExecutionLogReport")]
+[assembly: AssemblyTitle("ToscaTCCountReport")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Tricentis GmbH")]
-[assembly: AssemblyProduct("InsoftExecutionLogReport")]
+[assembly: AssemblyProduct("ToscaTCCountReport")]
 [assembly: AssemblyCopyright("Copyright © Insoft 2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: TCAddOnType(typeof(InsoftExecutionLogReport.RibbonAddOn))]
+[assembly: TCAddOnType(typeof(ToscaTCCountReport.RibbonAddOn))]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 

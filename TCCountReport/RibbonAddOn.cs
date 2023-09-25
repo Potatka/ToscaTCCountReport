@@ -1,6 +1,6 @@
 ﻿using Tricentis.TCAddOns;
 
-namespace InsoftExecutionLogReport
+namespace ToscaTCCountReport
 {
     // TCAddOn: This abstract class is used to identify the dll as an AddOn and this needs to be inherited and implemented in the AddOn assemmbly.
     public class RibbonAddOn : TCAddOn
