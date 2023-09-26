@@ -13,18 +13,23 @@ namespace ToscaTCCountReport
     {
         private List<TCObject> tCObjects = new List<TCObject>();
         public List<TestCase> tcs = new List<TestCase>();
+        private List<string> tqlStringList = new List<string>();    
         public List<TcLogDataCollection> executionLogDataCollections = new List<TcLogDataCollection>();
 
 
-        public List<TcLogDataCollection> SearchForTcLogs(TCAddOnTaskContext context, TCProject project)
-        {
-            string remoteELSearch = string.Format("=>SUBPARTS:TestCase[(CreatedAt=~\"^9/\")" +
-                "AND(CreatedAt=~\"2023\")" +
-                "AND(CreatedBy==\"Admin\")]");
+        public List<TcLogDataCollection> SearchForTcLogs(TCAddOnTaskContext context, TCProject project, List<string> badgeIdList)
+        {   foreach (string badgeID in badgeIdList)
+            {
+                string remoteELSearch = string.Format("=>SUBPARTS:TestCase[(CreatedAt=~\"^9/\")" +
+                    "AND(CreatedAt=~\"2023\")" +
+                    "AND(CreatedBy==\"{0}\")]", badgeID);
 
-            //string basicELSearch = "=>SUBPARTS:ExecutionList->ActualExecutionLog";
-
-            tCObjects = project.Search(remoteELSearch);
+                //tqlStringList.Add(remoteELSearch);
+                List<TCObject> searchResults = (project.Search(remoteELSearch));
+                tCObjects.AddRange(searchResults);
+            }
+            
+            
            
 
             if (tCObjects.Count != 0)

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ToscaTCCountReport;
 using Tricentis.TCAddOns;
 using Tricentis.TCAPIObjects.Objects;
 
@@ -19,12 +20,12 @@ namespace ToscaTCCountReport
        
         // Override this method to implement the logic for the execution
         public override void Execute(TCAddOnTaskContext context)
-        {
-                     
+        {                     
             SearchHelper searchHelper = new SearchHelper();
             CsvWriter csvWriter= new CsvWriter();
+            CsvReaderHelper csvReader = new CsvReaderHelper(context.GetFilePath("Select input CSV file"));               
             string documentsPath = context.GetFolderPath("Select save location");
-            List<TcLogDataCollection> eLogDataCollections= searchHelper.SearchForTcLogs(context,project);
+            List<TcLogDataCollection> eLogDataCollections= searchHelper.SearchForTcLogs(context,project,csvReader.ReadCsvAndGetIDs());
             csvWriter.WriteToCsv(eLogDataCollections, context, documentsPath);            
 
 
