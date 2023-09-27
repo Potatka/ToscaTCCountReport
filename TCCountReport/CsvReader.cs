@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -22,11 +22,11 @@ namespace ToscaTCCountReport
             using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)))
             {
                 // Assuming the CSV has headers, use ReadHeader to skip them
-                csv.ReadHeader();
+                csv.Read();
 
                 while (csv.Read())
                 {
-                    string personId = csv.GetField<string>("Badge_ID");
+                    string personId = csv.GetField<string>(1); // Index 1 corresponds to the second column (0-based)
                     idList.Add(personId);
                 }
             }

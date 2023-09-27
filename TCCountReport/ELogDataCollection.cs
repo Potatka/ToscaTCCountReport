@@ -24,6 +24,7 @@ namespace ToscaTCCountReport
         public string NumberOfTestCasesPassed { get; set; }
         public string NumberOfTestCasesNotExecuted { get; set; }
         public string NumberOfTestCasesWithUnknownState { get; set; }
+        
 
 
         public TcLogDataCollection(TestCase el)

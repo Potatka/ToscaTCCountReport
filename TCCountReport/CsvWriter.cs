@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Tricentis.TCAddOns;
 
 namespace ToscaTCCountReport
@@ -39,22 +40,24 @@ namespace ToscaTCCountReport
                     File.Delete(filePath);
                 }
             }
-            
+
             //S
             foreach (TcLogDataCollection tcInfo in testCaseLog)
             {
                 if (!File.Exists(filePath))
                 {
-                    var csvString = string.Format("{0},{1},{2}{3}",
-                                                  "DisplayName", "CreatedByUser","CreatedTime", Environment.NewLine);
+                    var csvString = string.Format("{0},{1}{2}",
+                                                  "Resource Name", "Created TC Count", Environment.NewLine);
                     File.WriteAllText(filePath, csvString);
                 }
 
-                var csvData = string.Format("{0},{1},{2}{3}",
-                                            tcInfo.DisplayedName, tcInfo.CreatedBy, tcInfo.CreatedAt,                                            
-                                             Environment.NewLine);
+                var csvData = string.Format("{0},{1},{2}",
+                                               testCaseLog.FirstOrDefault().CreatedBy, testCaseLog.Count(),
+                                                Environment.NewLine);
                 File.AppendAllText(filePath, csvData);
             }
+
+
 
             isWriterFinished = true;
 
