@@ -15,7 +15,8 @@ namespace ToscaTCCountReport
         public override string MenuText => "TestCaseByUser Report";
 
         //Get the project
-        readonly TCProject project = TCAddOn.ActiveWorkspace.GetTCProject();    
+        readonly TCProject project = TCAddOn.ActiveWorkspace.GetTCProject();  
+        
          
        
         // Override this method to implement the logic for the execution
@@ -25,7 +26,7 @@ namespace ToscaTCCountReport
             CsvWriter csvWriter= new CsvWriter();
             CsvReaderHelper csvReader = new CsvReaderHelper(context.GetFilePath("Select input CSV file"));               
             string documentsPath = context.GetFolderPath("Select save location");
-            List<TcLogDataCollection> eLogDataCollections= searchHelper.SearchForTcLogs(context,project,csvReader.ReadCsvAndGetIDs());
+            Dictionary<string,int> eLogDataCollections= searchHelper.SearchForTcLogs(context,project,csvReader.ReadCsvAndGetIDs());
             csvWriter.WriteToCsv(eLogDataCollections, context, documentsPath);            
 
 

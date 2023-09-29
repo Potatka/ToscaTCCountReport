@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Tricentis.TCAddOns;
 
 namespace ToscaTCCountReport
@@ -9,14 +8,17 @@ namespace ToscaTCCountReport
     public class CsvWriter
     {
         readonly DateTime now = DateTime.Now;
+        string filePath;
+
         public CsvWriter()
         {
-
+            
         }
-        public void WriteToCsv(List<TcLogDataCollection> testCaseLog, TCAddOnTaskContext context, string documentsPath)
+
+        public void WriteToCsv(Dictionary<string, int> badgeIdCountMap, TCAddOnTaskContext context, string documentsPath)
         {
             string timestamp = now.ToString("yyyyMMdd");
-            string csvFileName = "ExecutionLogReport_" + timestamp + ".csv";
+            string csvFileName = "TestCaseCountReport" + timestamp + ".csv";
             string filePath = Path.Combine(documentsPath, csvFileName);
             bool confirmDelete = false;
             bool isWriterFinished;
@@ -30,9 +32,13 @@ namespace ToscaTCCountReport
                     MsgBoxResult deleteDecision = context.ShowMessageBox_Yes_No("Warning", String.Format("Report already exists in the following location: {0}"
                         , Environment.NewLine + Environment.NewLine + filePath) + Environment.NewLine + "Do you want to overwrite it?");
 
-                    confirmDelete = (deleteDecision == MsgBoxResult.Yes) ? confirmDelete = true : confirmDelete = false;
+                    confirmDelete = (deleteDecision == MsgBoxResult.Yes);
 
-                    if (!confirmDelete) { context.ShowMessageBox("Warning", "Attention,the report was not created!"); }
+                    if (!confirmDelete)
+                    {
+                        context.ShowMessageBox("Warning", "Attention, the report was not created!");
+                        return;
+                    }
                 }
 
                 if (confirmDelete)
@@ -41,32 +47,30 @@ namespace ToscaTCCountReport
                 }
             }
 
-            //S
-            foreach (TcLogDataCollection tcInfo in testCaseLog)
+            foreach (var kvp in badgeIdCountMap)
             {
+                string badgeID = kvp.Key;
+                int count = kvp.Value;
+
                 if (!File.Exists(filePath))
                 {
                     var csvString = string.Format("{0},{1}{2}",
-                                                  "Resource Name", "Created TC Count", Environment.NewLine);
+                                                  "Badge ID", "Created TC Count", Environment.NewLine);
                     File.WriteAllText(filePath, csvString);
                 }
 
                 var csvData = string.Format("{0},{1},{2}",
-                                               testCaseLog.FirstOrDefault().CreatedBy, testCaseLog.Count(),
-                                                Environment.NewLine);
+                                               badgeID, count, Environment.NewLine);
                 File.AppendAllText(filePath, csvData);
             }
 
-
-
             isWriterFinished = true;
 
-            if (isWriterFinished == true && confirmDelete == true)
+            if (isWriterFinished)
             {
                 context.ShowMessageBox("Warning", String.Format("Report created in the following location: {0}"
                         , Environment.NewLine + Environment.NewLine + filePath));
             }
         }
-
     }
 }

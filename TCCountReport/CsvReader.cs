@@ -25,9 +25,9 @@ namespace ToscaTCCountReport
                 csv.Read();
 
                 while (csv.Read())
-                {
+                {   
                     string personId = csv.GetField<string>(1); // Index 1 corresponds to the second column (0-based)
-                    idList.Add(personId);
+                    if (personId != "") { idList.Add(personId); }
                 }
             }
             return idList;

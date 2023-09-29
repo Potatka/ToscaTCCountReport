@@ -12,27 +12,36 @@ namespace ToscaTCCountReport
     public class SearchHelper
     {
         private List<TCObject> tCObjects = new List<TCObject>();
-        public List<TestCase> tcs = new List<TestCase>();
-        private List<string> tqlStringList = new List<string>();    
+        public List<TestCase> tcs = new List<TestCase>();            
         public List<TcLogDataCollection> executionLogDataCollections = new List<TcLogDataCollection>();
 
 
-        public List<TcLogDataCollection> SearchForTcLogs(TCAddOnTaskContext context, TCProject project, List<string> badgeIdList)
-        {   foreach (string badgeID in badgeIdList)
+        public Dictionary<string, int> SearchForTcLogs(TCAddOnTaskContext context, TCProject project, List<string> badgeIdList)
+        {
+            Dictionary<string, int> badgeIdCountMap = new Dictionary<string, int>();
+
+            foreach (string badgeID in badgeIdList)
             {
-                string remoteELSearch = string.Format("=>SUBPARTS:TestCase[(CreatedAt=~\"^9/\")" +
+                string remoteELSearch = string.Format("=>SUBPARTS:TestCase[(CreatedAt=~\"^8/\")" +
                     "AND(CreatedAt=~\"2023\")" +
                     "AND(CreatedBy==\"{0}\")]", badgeID);
-
-                //tqlStringList.Add(remoteELSearch);
-                List<TCObject> searchResults = (project.Search(remoteELSearch));
-                tCObjects.AddRange(searchResults);
+                
+                  tCObjects = project.Search(remoteELSearch);
+                List<TCObject> list = new List<TCObject>();              
+                
+                list = project.Search(remoteELSearch);
+                int count = tCObjects.Count;
+                badgeIdCountMap.Add(badgeID, count);
+                
+                
+                
             }
-            
-            
-           
 
-            if (tCObjects.Count != 0)
+
+
+
+
+           /* if (tCObjects.Count != 0)
             {
                 foreach (TCObject obj in tCObjects)
                 {
@@ -40,13 +49,13 @@ namespace ToscaTCCountReport
                     {
                         tcs.Add(tc);
                         TcLogDataCollection eLogData = new TcLogDataCollection(tc);
-
+                        tc.AllOwnedSubItems
                         //sort thru execution logs and add them to reporting list for later
-                        /*if (eLogData.createdBy == "Unknown" && eLogData.duration == "0" && eLogData.createdAt == "Unknown"
+                        if (eLogData.createdBy == "Unknown" && eLogData.duration == "0" && eLogData.createdAt == "Unknown"
                              && eLogData.modifiedAt == "Unknown" && eLogData.modifiedAt == "Unknown")
                         {
                             executionLogDataCollections.Add(eLogData);
-                        }*/
+                        }
                         executionLogDataCollections.Add(eLogData);
                     }
 
@@ -58,9 +67,9 @@ namespace ToscaTCCountReport
             {
                 context.ShowErrorMessage("Error", "No Execution Lists found!");
             }
-            tCObjects.Clear();
+            tCObjects.Clear();*/
 
-            return executionLogDataCollections;
+            return badgeIdCountMap;
         }
     }
 }
