@@ -24,10 +24,11 @@ namespace ToscaTCCountReport
         {                     
             SearchHelper searchHelper = new SearchHelper();
             CsvWriter csvWriter= new CsvWriter();
+            MonthSelectorHelper monthSelectorHelper = new MonthSelectorHelper();
             CsvReaderHelper csvReader = new CsvReaderHelper(context.GetFilePath("Select input CSV file"));               
             string documentsPath = context.GetFolderPath("Select save location");
-            Dictionary<string,int> eLogDataCollections= searchHelper.SearchForTcLogs(context,project,csvReader.ReadCsvAndGetIDs());
-            csvWriter.WriteToCsv(eLogDataCollections, context, documentsPath);            
+            Dictionary<string,int> eLogDataCollections= searchHelper.SearchForTcLogs(context,project,csvReader.ReadCsvAndGetIDs(), monthSelectorHelper);
+            csvWriter.WriteToCsv(eLogDataCollections, context, documentsPath,monthSelectorHelper.currentSelectedMonth,csvReader.ReadCsvAndGetIDNameMap());            
 
 
             context.ShowMessageBox("", "Task finished!");

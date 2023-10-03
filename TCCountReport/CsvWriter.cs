@@ -15,7 +15,7 @@ namespace ToscaTCCountReport
             
         }
 
-        public void WriteToCsv(Dictionary<string, int> badgeIdCountMap, TCAddOnTaskContext context, string documentsPath)
+        public void WriteToCsv(Dictionary<string, int> badgeIdCountMap, TCAddOnTaskContext context, string documentsPath, string selectedMonth,Dictionary<string, string> resourceNameMap)
         {
             string timestamp = now.ToString("yyyyMMdd");
             string csvFileName = "TestCaseCountReport" + timestamp + ".csv";
@@ -47,20 +47,45 @@ namespace ToscaTCCountReport
                 }
             }
 
+            foreach (string personId in badgeIdCountMap.Keys)
+            {
+                // Check if the personId exists in resourceNameMap
+                if (resourceNameMap.ContainsKey(personId))
+                {
+                    // Get the value from resourceNameMap using the personId key
+                    string resourceName = resourceNameMap[personId];
+                    
+                }
+                else
+                {
+                    Console.WriteLine($"Person ID: {personId} does not have a matching resource.");
+                }
+            }
+
             foreach (var kvp in badgeIdCountMap)
             {
                 string badgeID = kvp.Key;
                 int count = kvp.Value;
+                string resourceName;
+                if (resourceNameMap.ContainsKey(badgeID))
+                {
+                    // Get the value from resourceNameMap using the personId key
+                     resourceName = resourceNameMap[badgeID];
 
+                }
+                else
+                {
+                    resourceName = "Resource name not found for Badge ID";
+                }
                 if (!File.Exists(filePath))
                 {
-                    var csvString = string.Format("{0},{1}{2}",
-                                                  "Badge ID", "Created TC Count", Environment.NewLine);
+                    var csvString = string.Format("{0},{1},{2},{3}{4}",
+                                                  "Resource Name","Badge ID", "Created TC Count", "Selected Month", Environment.NewLine);
                     File.WriteAllText(filePath, csvString);
                 }
 
-                var csvData = string.Format("{0},{1},{2}",
-                                               badgeID, count, Environment.NewLine);
+                var csvData = string.Format("{0},{1},{2},{3},{4}",
+                                               resourceName, badgeID, count, selectedMonth, Environment.NewLine);
                 File.AppendAllText(filePath, csvData);
             }
 
