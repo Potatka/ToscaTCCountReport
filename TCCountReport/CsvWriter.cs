@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Tricentis.TCAddOns;
+using Tricentis.TCAPIObjects.Objects;
 
 namespace ToscaTCCountReport
 {
@@ -14,7 +15,7 @@ namespace ToscaTCCountReport
         {
             
         }
-
+        
         public void WriteToCsv(Dictionary<string, int> badgeIdCountMap, TCAddOnTaskContext context, string documentsPath, string selectedMonth,Dictionary<string, string> resourceNameMap)
         {
             string timestamp = now.ToString("yyyyMMdd");

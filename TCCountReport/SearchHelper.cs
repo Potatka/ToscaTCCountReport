@@ -22,7 +22,7 @@ namespace ToscaTCCountReport
            
 
             string remoteELSearch = string.Format("=>SUBPARTS:TestCase[(CreatedAt=~\"^{0}/\")" +
-                "AND(CreatedAt=~\"2023\")]", monthSelectorHelper.GetUserSelectedMonthforReport(context));
+                "AND(CreatedAt=~\"{1}\")]", monthSelectorHelper.GetUserSelectedMonthforReport(context), monthSelectorHelper.GetUsersSelectedYearForReport(context));
 
 
             tCObjects = project.Search(remoteELSearch);
